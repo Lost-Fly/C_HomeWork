@@ -13,5 +13,5 @@ typedef Box* BoxPtr;
 BoxPtr Init(int n);
 void PushBox(BoxPtr, BoxPtr&);
 void PrintStack(BoxPtr);
-BoxPtr  DeleteBox(int idx, BoxPtr);
+BoxPtr  DeleteBox(int idx, BoxPtr&);
 //#endif

@@ -8,13 +8,14 @@ int main() {
 
 
     int n = 15;
-    int k = 12;
+    int k = 6;
     for (int i = 0; i < n; i++) {
         PushBox(Init(i), Top);
     }
     PrintStack(Top);
 
-    //Top = DeleteBox(k, Top);
-    //PrintStack(Top);
+    Top = DeleteBox(k, Top);
+
+    PrintStack(Top);
 }
 
