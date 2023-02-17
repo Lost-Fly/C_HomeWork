@@ -1,8 +1,6 @@
-#pragma once
 //Node.h
-//#ifndef Node_H
+#pragma once
 
-//#define Node_H
 typedef struct Node {
     int num;
     Node* prev;
@@ -13,5 +11,4 @@ typedef Box* BoxPtr;
 BoxPtr Init(int n);
 void PushBox(BoxPtr, BoxPtr&);
 void PrintStack(BoxPtr);
-BoxPtr  DeleteBox(int idx, BoxPtr&);
-//#endif
+void  DeleteBox(int idx, BoxPtr&);

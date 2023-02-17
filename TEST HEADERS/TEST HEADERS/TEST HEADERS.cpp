@@ -1,5 +1,5 @@
 ﻿//Node source
-#include <iostream>
+
 #include "Node.h"
 using namespace std;
 
@@ -8,13 +8,13 @@ int main() {
 
 
     int n = 15;
-    int k = 6;
+    int k = 2;
     for (int i = 0; i < n; i++) {
         PushBox(Init(i), Top);
     }
     PrintStack(Top);
 
-    Top = DeleteBox(k, Top);
+    DeleteBox(k, Top);
 
     PrintStack(Top);
 }
