@@ -64,23 +64,23 @@ int main()
     string temp, operation;
     int clonenum, prognum, opnum;
 
-    vector<Clone> CVS;
+    vector<Clone> CVSorigin;
 
     Clone ZERO;
-    CVS.push_back(ZERO);
+    CVSorigin.push_back(ZERO);
      
     Clone C_1;
 
     C_1.SetNumber(1);
 
-    CVS.push_back(C_1);
+    CVSorigin.push_back(C_1);
 
 	for (int i = 0; i <= requestamount; i++) {
 		getline(cin, temp);
 
         ReadString(temp, operation, clonenum, prognum);
 
-        MakeCommand(operation, clonenum, prognum, CVS);
+        MakeCommand(operation, clonenum, prognum, CVSorigin);
         
     }
 
