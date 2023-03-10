@@ -2,34 +2,32 @@
 using namespace std;
 
 struct tnode {
-    int field;           // поле данных
-    tnode* left;  // левый потомок
-    tnode* right; // правый потомок
+    int field;          
+    tnode* left;  
+    tnode* right; 
 };
 
 void RightTreePrint(tnode* tree) {
-    if (tree != nullptr) { //Пока не встретится пустой узел
-        RightTreePrint(tree->right); //Рекурсивная функция для правого поддерева
-        RightTreePrint(tree->left); //Рекурсивная функция для левого поддерева
-        cout << tree->field << endl; //Отображаем корень дерева
+    if (tree != nullptr) {
+        RightTreePrint(tree->right); 
+        RightTreePrint(tree->left); 
+        cout << tree->field << endl; 
     }
 }
 
 tnode* addnode(int x, tnode* tree) {
-    if (tree == nullptr) { // Если дерева нет, то формируем корень
-        tree = new tnode; // память под узел
-        tree->field = x;   // поле данных
+    if (tree == nullptr) { 
+        tree = new tnode; 
+        tree->field = x;   
         tree->left = nullptr;
-        tree->right = nullptr; // ветви инициализируем пустотой
+        tree->right = nullptr; 
     }
-    else  if (x < tree->field)   // условие добавление левого потомка
+    else  if (x < tree->field)   
         tree->left = addnode(x, tree->left);
-    else    // условие добавление правого потомка
+    else    
         tree->right = addnode(x, tree->right);
     return(tree);
 }
-
-
 
 
 int main() {
