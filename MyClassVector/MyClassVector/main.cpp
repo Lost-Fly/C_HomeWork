@@ -3,7 +3,7 @@
 
 using namespace std;
 
-struct Point {
+class Point {
 public:
     void set(int x, int y) {
         this->x = x;
