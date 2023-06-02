@@ -34,14 +34,18 @@ public:
 	void ShowNeib() {
 		if (true) {
 			string s = "";
+			if (left == true)
+				s += "L";
 			if (right == true)
 				s += "R";
 			if (top == true)
 				s += "T";
 			if (bottom == true)
 				s += "B";
-			s += ",";
-			cout << s << endl;
+
+
+
+			cout << s;
 		}
 		else {
 			cout << "," << endl;
@@ -83,7 +87,7 @@ int main() {
 
 	cout << endl;
 
-	sortCordsByY(Cords);
+	// sortCordsByY(Cords);
 
 	for (int i = 0; i < cords_amount; i++) {
 		Cords[i].ShowCords();
@@ -94,9 +98,9 @@ int main() {
 
 	Cords[0].ShowCords();
 
-	for (int i = 0; i < cords_amount - 1 ; i++) {
+	for (int i = 0; i < cords_amount  ; i++) {
 
-		for (int j = i + 1; j < cords_amount; j++) {
+		for (int j = 0; j < cords_amount; j++) {
 			if ((Cords[i].x_ == Cords[j].x_) && (Cords[j].y_ - Cords[i].y_ == 1)) {
 				Neig[i].top = true;
 				Neig[i].p_t.x_ = Cords[j].x_;
@@ -115,15 +119,21 @@ int main() {
 				Neig[i].p_r.y_ = Cords[j].y_;
 				Neig[j].mentioned = true;
 			}
+			if ((Cords[i].x_ - Cords[j].x_ == 1) && (Cords[i].y_ == Cords[j].y_)) {
+				Neig[i].left = true;
+				Neig[i].p_l.x_ = Cords[j].x_;
+				Neig[i].p_l.y_ = Cords[j].y_;
+				Neig[j].mentioned = true;
+			}
 		}
 
 		Neig[i].ShowNeib();
-
-
+		if (i + 1 != cords_amount) {
+			cout << ',' << endl;
+		}
+		else {
+			cout << '.' << endl;
+		}
 	}
-
-
-	cout << "." << endl;
-
 
 }

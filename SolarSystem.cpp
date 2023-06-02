@@ -137,14 +137,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message) {
     case WM_CREATE:
-
         SetTimer(hWnd, 1, 10, NULL);
         return 0;
 
     case WM_TIMER:
         // Обновляем углы поворота планет
-
-
         mercuryAngle += 0.05;
         venusAngle += 0.03;
         earthAngle += 0.02;
@@ -157,7 +154,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         // Обновляем изображение
         InvalidateRect(hWnd, NULL, FALSE);
         return 0;
-    case WM_PAINT: {
+
+    case WM_PAINT:
+    {
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);
 
@@ -165,10 +164,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         int centerX = ps.rcPaint.right / 2;
         int centerY = ps.rcPaint.bottom / 2;
 
-        // Радиус орбиты планет
-        int orbitRadius = 100;
+        // Радиус солнца
+        int sunRadius = 50;
 
-        // Радиус планет
+        // Радиус орбит планет
+        int mercuryOrbitRadius = 100;
+        int venusOrbitRadius = 150;
+        int earthOrbitRadius = 200;
+        int marsOrbitRadius = 250;
+        int jupiterOrbitRadius = 350;
+        int saturnOrbitRadius = 450;
+        int uranusOrbitRadius = 550;
+        int neptuneOrbitRadius = 650;
+
+        // Радиусы планет
         int mercuryRadius = 5;
         int venusRadius = 10;
         int earthRadius = 15;
@@ -178,50 +187,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         int uranusRadius = 20;
         int neptuneRadius = 18;
 
-        
+        // Отрисовка солнца
+        SelectObject(hdc, GetStockObject(DC_BRUSH));
+        SetDCBrushColor(hdc, RGB(255, 255, 0));
+        Ellipse(hdc, centerX - sunRadius, centerY - sunRadius, centerX + sunRadius, centerY + sunRadius);
 
         // Отрисовка планет
         SelectObject(hdc, GetStockObject(DC_BRUSH));
 
         // Меркурий
         SetDCBrushColor(hdc, RGB(192, 192, 192));
-        Ellipse(hdc, centerX + orbitRadius * cos(mercuryAngle) - mercuryRadius, centerY - orbitRadius * sin(mercuryAngle) - mercuryRadius,
-            centerX + orbitRadius * cos(mercuryAngle) + mercuryRadius, centerY - orbitRadius * sin(mercuryAngle) + mercuryRadius);
+        Ellipse(hdc, centerX + mercuryOrbitRadius * cos(mercuryAngle) - mercuryRadius, centerY - mercuryOrbitRadius * sin(mercuryAngle) - mercuryRadius,
+            centerX + mercuryOrbitRadius * cos(mercuryAngle) + mercuryRadius, centerY - mercuryOrbitRadius * sin(mercuryAngle) + mercuryRadius);
 
         // Венера
         SetDCBrushColor(hdc, RGB(255, 222, 173));
-        Ellipse(hdc, centerX + orbitRadius * cos(venusAngle) - venusRadius, centerY - orbitRadius * sin(venusAngle) - venusRadius,
-            centerX + orbitRadius * cos(venusAngle) + venusRadius, centerY - orbitRadius * sin(venusAngle) + venusRadius);
+        Ellipse(hdc, centerX + venusOrbitRadius * cos(venusAngle) - venusRadius, centerY - venusOrbitRadius * sin(venusAngle) - venusRadius,
+            centerX + venusOrbitRadius * cos(venusAngle) + venusRadius, centerY - venusOrbitRadius * sin(venusAngle) + venusRadius);
 
-        // Земля
-        SetDCBrushColor(hdc, RGB(0, 0, 255));
-        Ellipse(hdc, centerX + orbitRadius * cos(earthAngle) - earthRadius, centerY - orbitRadius * sin(earthAngle) - earthRadius,
-            centerX + orbitRadius * cos(earthAngle) + earthRadius, centerY - orbitRadius * sin(earthAngle) + earthRadius);
+        //Земля
+        SetDCBrushColor(hdc, RGB(0, 128, 0));
+        Ellipse(hdc, centerX + earthOrbitRadius * cos(earthAngle) - earthRadius, centerY - earthOrbitRadius * sin(earthAngle) - earthRadius,
+            centerX + earthOrbitRadius * cos(earthAngle) + earthRadius, centerY - earthOrbitRadius * sin(earthAngle) + earthRadius);
 
-        // Марс
-        SetDCBrushColor(hdc, RGB(255, 165, 0));
-        Ellipse(hdc, centerX + orbitRadius * cos(marsAngle) - marsRadius, centerY - orbitRadius * sin(marsAngle) - marsRadius,
-            centerX + orbitRadius * cos(marsAngle) + marsRadius, centerY - orbitRadius * sin(marsAngle) + marsRadius);
-
-        // Юпитер
-        SetDCBrushColor(hdc, RGB(238, 232, 170));
-        Ellipse(hdc, centerX + orbitRadius * cos(jupiterAngle) - jupiterRadius, centerY - orbitRadius * sin(jupiterAngle) - jupiterRadius,
-            centerX + orbitRadius * cos(jupiterAngle) + jupiterRadius, centerY - orbitRadius * sin(jupiterAngle) + jupiterRadius);
-
-        // Сатурн
-        SetDCBrushColor(hdc, RGB(210, 180, 140));
-        Ellipse(hdc, centerX + orbitRadius * cos(saturnAngle) - saturnRadius, centerY - orbitRadius * sin(saturnAngle) - saturnRadius,
-            centerX + orbitRadius * cos(saturnAngle) + saturnRadius, centerY - orbitRadius * sin(saturnAngle) + saturnRadius);
-        SelectObject(hdc, GetStockObject(DC_PEN));
-        SetDCPenColor(hdc, RGB(210, 180, 140));
-        Arc(hdc, centerX + orbitRadius * cos(saturnAngle) - saturnRadius, centerY - orbitRadius * sin(saturnAngle) - saturnRadius,
-            centerX + orbitRadius * cos(saturnAngle) + saturnRadius, centerY - orbitRadius * sin(saturnAngle) + saturnRadius, saturnRadius - 5, saturnRadius - 5, saturnRadius - 5, saturnRadius - 5);
-        SetDCBrushColor(hdc, RGB(255, 255, 0));
-        Ellipse(hdc, centerX + orbitRadius * cos(saturnAngle) - saturnRadius + (saturnRadius - 5) * cos(saturnAngle * 3), centerY - orbitRadius * sin(saturnAngle) - saturnRadius + (saturnRadius - 5) * sin(saturnAngle * 3),
-            centerX + orbitRadius * cos(saturnAngle) + saturnRadius + (saturnRadius - 5) * cos(saturnAngle * 3), centerY - orbitRadius * sin(saturnAngle) + saturnRadius + (saturnRadius - 5) * sin(saturnAngle * 3));
-
+        
         // Уран
-        SetDCBrushColor(hdc, RGB(173, 216, 230));
+        SetDCBrushColor(hdc, RGB(135, 206, 250));
         Ellipse(hdc, centerX + orbitRadius * cos(uranusAngle) - uranusRadius, centerY - orbitRadius * sin(uranusAngle) - uranusRadius,
             centerX + orbitRadius * cos(uranusAngle) + uranusRadius, centerY - orbitRadius * sin(uranusAngle) + uranusRadius);
 
@@ -229,6 +220,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         SetDCBrushColor(hdc, RGB(0, 191, 255));
         Ellipse(hdc, centerX + orbitRadius * cos(neptuneAngle) - neptuneRadius, centerY - orbitRadius * sin(neptuneAngle) - neptuneRadius,
             centerX + orbitRadius * cos(neptuneAngle) + neptuneRadius, centerY - orbitRadius * sin(neptuneAngle) + neptuneRadius);
+
+        // Солнце
+        SelectObject(hdc, GetStockObject(DC_BRUSH));
+        SetDCBrushColor(hdc, RGB(255, 255, 0));
+        Ellipse(hdc, centerX - 25, centerY - 25, centerX + 25, centerY + 25);
 
 
         EndPaint(hWnd, &ps);
@@ -239,10 +235,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         PostQuitMessage(0);
         return 0;
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
     }
-    return 0;
+    return DefWindowProc(hWnd, uMsg, wParam, lParam);
 }
 
 // Обработчик сообщений для окна "О программе".
